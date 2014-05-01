@@ -18,11 +18,32 @@ def de_espn_printer(olst):
 """):
         print de_espn(line)
 
-def espn_to_excel(ostr):
+def espn_to_list(ostr):
     for line in ostr.split('\n'):
         splits = line.split('	')
-        splits[0] = alphanumeric_space(splits[0])
-        yield '	'.join([de_espn(splits[0])]+splits[2:3]+splits[5:13])
+        yield [de_espn(splits[0])]+splits[2:3]+splits[5:13]
+
+def espn_to_excel(ostr):
+    for line in espn_to_list(ostr):
+        print '	'.join(line)
+
+def order_espn_to_yahoo(espn):
+    """this takes a list in espn format and reorders it to the yahoo ranking order
+    also it's probably a REALLY inefficient sorting but I don't know enough
+    about sorting algorithm complexity so this will do for now. I think it's
+    O(n^2) complexity actually..."""
+    for y in yahoo.split('\n'):
+        yname = y.split('. ')[1]
+        efound=False
+        """is there a more pythonic way to recognize when a player in
+        the yahoo list isn't in the espn list? Explicit bool (efound)
+        seems unpythonic"""
+        for e in espn_to_list(espn):
+            if  yname == e[0]:
+                efound=True
+                yield e
+        if efound==False:
+            yield yname
 
 aggregate = {}
 yahooranks = []
