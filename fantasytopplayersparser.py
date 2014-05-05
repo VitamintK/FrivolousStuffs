@@ -10,7 +10,7 @@ def alphanumeric_space(word):
     return re.sub(r'[^a-zA-Z0-9,\']', ' ', word)
 
 def de_espn(ostr):
-    return alphanumeric_space(ostr.split(',')[0])
+    return (alphanumeric_space(ostr.split(',')[0])).strip()
 
 def de_espn_printer(olst):
     """take a list in the form of espn and return sanitized names"""
@@ -30,8 +30,8 @@ def espn_to_excel(ostr):
 def order_espn_to_yahoo(espn):
     """this takes a list in espn format and reorders it to the yahoo ranking order
     also it's probably a REALLY inefficient sorting but I don't know enough
-    about sorting algorithm complexity so this will do for now. I think it's
-    O(n^2) complexity actually..."""
+    about sorting algorithm complexity so this will do for now. O(n^2) complexity?"""
+    players=[]
     for y in yahoo.split('\n'):
         yname = y.split('. ')[1]
         efound=False
@@ -39,11 +39,22 @@ def order_espn_to_yahoo(espn):
         the yahoo list isn't in the espn list? Explicit bool (efound)
         seems unpythonic"""
         for e in espn_to_list(espn):
-            if  yname == e[0]:
+            #is it more efficient to use a list rather than a generator?
+            if  alphanumeric_space(yname) == e[0]:
                 efound=True
-                yield e
+                players.append(e)
         if efound==False:
-            yield yname
+            players.append([yname,'0','0','0','0','0','0','0','0','0'])
+    players.append([])
+    for e in espn_to_list(espn):
+        if e not in players:
+            players.append(e)
+
+    return players
+
+def print_espn_in_yahoo_order(espn):
+    #use on actualavg
+    for pl in order_espn_to_yahoo(espn): print '	'.join(pl)
 
 aggregate = {}
 yahooranks = []
