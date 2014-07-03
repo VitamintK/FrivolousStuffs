@@ -21,10 +21,17 @@ func numtostr(num int) (str string){
 	} else {
 		one,ten,hundred,thousand := num%10, (num%100)/10, (num%1000)/100, num/1000
 		fmt.Println(one,ten,hundred,thousand)
-		//str = ones[hundred] + " hundred and " + tens[ten] + " " + ones[one]
-		lengthof = len(ones[hundred]) + len(tens[ten]) + len(ones[one]) //+conditional length of "hundred and" if hundred exists
-		str = ""
+		str = ones[hundred] + "hundredand" + tens[ten] + ones[one]
 		fmt.Println(str)
+		if thousand>0{
+			lengthof = 11
+		}else{
+		lengthof = len(ones[hundred]) + len(tens[ten]) + len(ones[one]) //+conditional length of "hundred and" if hundred exists
+		if hundred>0{
+			lengthof+=10 //hundredand
+		}
+		}
+		str = ""
 	}
 	return
 
