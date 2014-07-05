@@ -7,7 +7,10 @@ func main(){
 }
 
 func euler() (endamount int){
-	fmt.Println(numtostr(443))
+	tests := [...]int{1,5,20,21,30,35,100,150,171,1000}
+	for _,value := range tests{
+		fmt.Println(numtostr(value))
+	}
 	endamount = 0
 	return
 }
