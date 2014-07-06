@@ -18,6 +18,7 @@ func euler() (endamount int){
 func numtostr(num int) (str string){
 	ones := [...]string{"","one","two","three","four","five","six","seven","eight","nine"}
 	tens := [...]string{"","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"}
+	teens := [...]string{"ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"}
 	//hundred = 7, and = 3
 	if num>1000{
 		str = ""
