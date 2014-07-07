@@ -3,41 +3,43 @@ package main
 import "fmt"
 
 func main(){
-	fmt.Println(euler())
+	fmt.Println(euler(1,1000))
 }
 
-func euler() (endamount int){
-	tests := [...]int{1,5,20,21,30,35,100,150,171,1000}
-	for _,value := range tests{
-		fmt.Println(numtostr(value))
+func euler(firstnum, lastnum int) (endamount int){
+	for i := firstnum; i <= lastnum; i++ {
+		endamount += numtolen(i)
 	}
-	endamount = 0
 	return
 }
 
-func numtostr(num int) (str string){
+func numtolen(num int) (lengthof int){
+	//just realized this could be written decently recursively
 	ones := [...]string{"","one","two","three","four","five","six","seven","eight","nine"}
 	tens := [...]string{"","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"}
 	teens := [...]string{"ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"}
-	//hundred = 7, and = 3
-	if num>1000{
-		str = ""
+	if num>1000 || num<1{
+		lengthof = 0
 	} else {
-		var lengthof int
 		one,ten,hundred,thousand := num%10, (num%100)/10, (num%1000)/100, num/1000
-		fmt.Println(one,ten,hundred,thousand)
-		str = ones[hundred] + "hundredand" + tens[ten] + ones[one]
-		fmt.Println(str,len(str))
+		//fmt.Println(one,ten,hundred,thousand)
 		if thousand>0{
 			lengthof = 11
 		}else{
-			lengthof = len(ones[hundred]) + len(tens[ten]) + len(ones[one]) //+conditional length of "hundred and" if hundred exists
+			if ten == 1{
+				lengthof = len(ones[hundred]) + len(teens[one])
+			} else{
+				lengthof = len(ones[hundred]) + len(tens[ten]) + len(ones[one])
+			}
 			if hundred>0{
-				lengthof+=10 //hundredand
+				if one != 0 || ten != 0{
+					lengthof+=10 //len(hundredand) == 10
+				} else {
+					lengthof += 7
+				}
 			}
 		}
-		str = ""
-		fmt.Println(lengthof)
+		//fmt.Println(lengthof)
 	}
 	return
 
