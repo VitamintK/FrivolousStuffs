@@ -23,6 +23,9 @@ func main(){
 }
 
 func triToSlice(tri string) (theslice []string){
-	theslice = strings.Fields(tri)
+	theslice = strings.Split(tri,"\n")
+	for _,i := range theslice{
+		fmt.Println(i)
+	}
 	return
 }
