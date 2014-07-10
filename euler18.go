@@ -23,9 +23,8 @@ func main(){
 }
 
 func triToSlice(tri string) (theslice []string){
-	theslice = strings.Split(tri,"\n")
-	for _,i := range theslice{
-		fmt.Println(i)
+	for _,i := range strings.Split(tri,"\n"){
+		theslice = append(theslice,strings.Split(i," ")...)
 	}
 	return
 }
