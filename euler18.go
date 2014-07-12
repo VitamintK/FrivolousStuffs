@@ -33,7 +33,19 @@ func triToSlice(tri string) (theslice []string){
 func sliceToTree(theslice []string) (root node){
 	for rownum,rowslice :=  range theslice{
 		for columnnum,value := range rowslice{
-
+			parent1 = theslice[rownum-1][columnnum-1]
+			parent2 = theslice[rownum-1][columnnum]
+			node{value,&,&,&,&}
+		}
+	}
+	return
+}
+func triToNodes(tri string) (nodes []node){
+	for rownum,rowslice :=  range strings.Split(tri,"\n"){
+		for columnnum,value := range strings.Split(rowslice," "){
+			parent1 = nodes[rownum-1][columnnum-1]
+			parent2 = nodes[rownum-1][columnnum]
+			nodes = append(nodes,node{value,&parent1,&parent2,,})
 		}
 	}
 	return
@@ -41,6 +53,8 @@ func sliceToTree(theslice []string) (root node){
 
 type node struct {
 	value int
-	parent1, parent2 *node
+	parent1, parent2 *node //change these to slices/array instead of 2 variables
 	child1, child2 *node
 }
+
+//function of nodes: addChild() which adds a child 
