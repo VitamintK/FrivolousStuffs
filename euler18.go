@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 import "strings"
+import "strconv"
 
 func main(){
 	triangle := `75
@@ -30,22 +31,19 @@ func triToSlice(tri string) (theslice []string){
 	}
 	return
 }
-func sliceToTree(theslice []string) (root node){
-	for rownum,rowslice :=  range theslice{
-		for columnnum,value := range rowslice{
-			parent1 = theslice[rownum-1][columnnum-1]
-			parent2 = theslice[rownum-1][columnnum]
-			node{value,&,&,&,&}
-		}
-	}
-	return
-}
-func triToNodes(tri string) (nodes []node){
+
+func triToNodes(tri string) (nodes [][]node){
 	for rownum,rowslice :=  range strings.Split(tri,"\n"){
+		row := []node{}
+		nodes = append(nodes,row)
 		for columnnum,value := range strings.Split(rowslice," "){
-			parent1 = nodes[rownum-1][columnnum-1]
-			parent2 = nodes[rownum-1][columnnum]
-			nodes = append(nodes,node{value,&parent1,&parent2,,})
+			parent1 := nodes[rownum-1][columnnum-1]
+			parent2 := nodes[rownum-1][columnnum]
+			value,err := strconv.Atoi(value)
+			if err != nil{
+				fmt.Println(err)
+			}
+			row = append(row,node{value,&parent1,&parent2,nil,nil})
 		}
 	}
 	return
