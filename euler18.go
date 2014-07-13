@@ -43,16 +43,19 @@ func triToNodes(tri string) (nodes [][]node){
 			if err != nil{
 				fmt.Println(err)
 			}
-			row = append(row,node{value,&parent1,&parent2,nil,nil})
+			row = append(row,node{value,[]*node{&parent1,&parent2},[]*node{}})
 		}
 	}
 	return
 }
 
-type node struct {
+type node struct { //should capitalize node?
 	value int
-	parent1, parent2 *node //change these to slices/array instead of 2 variables
-	child1, child2 *node
+	parents []*node
+	children []*node
 }
 
+func (n *node) addChild(childnodes []*node) (){
+	n.children = append(n.children,childnodes...)
+}
 //function of nodes: addChild() which adds a child 
