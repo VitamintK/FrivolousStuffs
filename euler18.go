@@ -22,7 +22,8 @@ func main(){
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23`
 	trislice := triToSlice(triangle)
 	fmt.Println(trislice)
-
+	trinodes := triToNodes(triangle)
+	fmt.Println(trinodes)
 }
 
 func triToSlice(tri string) (theslice []string){
@@ -35,16 +36,28 @@ func triToSlice(tri string) (theslice []string){
 func triToNodes(tri string) (nodes [][]node){
 	for rownum,rowslice :=  range strings.Split(tri,"\n"){
 		row := []node{}
-		nodes = append(nodes,row)
 		for columnnum,value := range strings.Split(rowslice," "){
-			parent1 := nodes[rownum-1][columnnum-1]
-			parent2 := nodes[rownum-1][columnnum]
+			var parent1 node
+			var parent2 node
+			if rownum-1<len(nodes) && rownum-1 >= 0 {
+				if columnnum-1<len(nodes[rownum-1]) && columnnum-1 >= 0{
+					parent1 = nodes[rownum-1][columnnum-1]
+				}
+				if columnnum<len(nodes[rownum-1]) && columnnum-1 >= 0{
+					parent2 = nodes[rownum-1][columnnum]
+				}
+			}
 			value,err := strconv.Atoi(value)
+			fmt.Println(value)
 			if err != nil{
 				fmt.Println(err)
 			}
-			row = append(row,node{value,[]*node{&parent1,&parent2},[]*node{}})
+			newnode := node{value,[]*node{&parent1,&parent2},[]*node{}}
+			row = append(row, newnode)
+			parent1.addChild([]*node{&newnode}) //is this wrong?  probably
+			parent2.addChild([]*node{&newnode})
 		}
+		nodes = append(nodes,row)
 	}
 	return
 }
