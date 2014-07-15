@@ -24,6 +24,12 @@ func main(){
 	fmt.Println(trislice)
 	trinodes := triToNodes(triangle)
 	fmt.Println(trinodes)
+	for  _,i := range trinodes[len(trinodes)-1]{
+		for _,j := range i.parents{
+			fmt.Println(j.value)
+		}
+		fmt.Println(i.value)
+	}
 }
 
 func triToSlice(tri string) (theslice []string){
@@ -71,4 +77,7 @@ type node struct { //should capitalize node?
 func (n *node) addChild(childnodes []*node) (){
 	n.children = append(n.children,childnodes...)
 }
-//function of nodes: addChild() which adds a child 
+
+func getHighestTotal(topnode node) (nodes []*node){
+	return
+}
