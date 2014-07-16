@@ -4,6 +4,8 @@ import "fmt"
 import "strings"
 import "strconv"
 
+const MinInt :=  -(int(^uint(0) >> 1) - 1)
+
 func main(){
 	triangle := `75
 95 64
@@ -20,8 +22,6 @@ func main(){
 91 71 52 38 17 14 91 43 58 50 27 29 48
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23`
-	trislice := triToSlice(triangle)
-	fmt.Println(trislice)
 	trinodes := triToNodes(triangle)
 	fmt.Println(trinodes)
 	for  _,i := range trinodes[len(trinodes)-1]{
@@ -32,11 +32,21 @@ func main(){
 	}
 }
 
-func triToSlice(tri string) (theslice []string){
-	for _,i := range strings.Split(tri,"\n"){
-		theslice = append(theslice,strings.Split(i," ")...)
-	}
-	return
+func intmax(a, b int) int {
+   if a < b {
+      return b
+   }
+   return a
+}
+
+type node struct { //should capitalize node?
+	value int
+	parents []*node
+	children []*node
+}
+
+func (n *node) addChild(childnodes []*node) (){
+	n.children = append(n.children,childnodes...)
 }
 
 func triToNodes(tri string) (nodes [][]node){
@@ -68,16 +78,14 @@ func triToNodes(tri string) (nodes [][]node){
 	return
 }
 
-type node struct { //should capitalize node?
-	value int
-	parents []*node
-	children []*node
-}
-
-func (n *node) addChild(childnodes []*node) (){
-	n.children = append(n.children,childnodes...)
-}
-
 func getHighestTotal(topnode node) (nodes []*node){
+	if len(node.children) == 0{
+		return 0
+	} else {
+		max := MinInt
+		for _,i := node.children{
+			max = intmax(getHighestTotal(i),max)
+		}
+	}
 	return
 }
