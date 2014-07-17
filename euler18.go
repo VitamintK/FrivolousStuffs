@@ -32,13 +32,6 @@ func main(){
 	}
 }
 
-func intmax(a, b int) int {
-   if a < b {
-      return b
-   }
-   return a
-}
-
 type node struct { //should capitalize node?
 	value int
 	parents []*node
@@ -80,11 +73,13 @@ func triToNodes(tri string) (nodes [][]node){
 
 func getHighestTotal(topnode node) (nodes []*node){
 	if len(node.children) == 0{
-		return 0
+		return
 	} else {
 		max := MinInt
 		for _,i := node.children{
-			max = intmax(getHighestTotal(i),max)
+			if getHighestTotal(i) > max{
+				append(nodes,i)
+			}
 		}
 	}
 	return
