@@ -4,7 +4,7 @@ import "fmt"
 import "strings"
 import "strconv"
 
-const MinInt :=  -(int(^uint(0) >> 1) - 1)
+const MinInt = -(int(^uint(0) >> 1) - 1)
 
 func main(){
 	triangle := `75
@@ -24,12 +24,18 @@ func main(){
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23`
 	trinodes := triToNodes(triangle)
 	fmt.Println(trinodes)
-	for  _,i := range trinodes[len(trinodes)-1]{
-		for _,j := range i.parents{
+	for  _,i := range trinodes[len(trinodes)-2]{
+		for _,j := range i.children{
 			fmt.Println(j.value)
 		}
 		fmt.Println(i.value)
 	}
+	fmt.Println(trinodes[0][0].getHighestTotal())
+	fmt.Println(append(trinodes[0][0].children,[]*node{&trinodes[1][0],&trinodes[1][1]}...))
+	trinodes[0][0].children = append(trinodes[0][0].children,[]*node{&trinodes[1][0],&trinodes[1][1]}...)
+	trinodes[0][0].addChild([]*node{&trinodes[1][0]})
+	fmt.Println(trinodes[0][0].children)
+	fmt.Println(trinodes[1][0].parents[1].value)
 }
 
 type node struct { //should capitalize node?
@@ -42,6 +48,24 @@ func (n *node) addChild(childnodes []*node) (){
 	n.children = append(n.children,childnodes...)
 }
 
+func (n *node) getHighestTotal() (nodes []*node, total int){
+	if len(n.children) == 0{
+		total = n.value
+		return
+	} else {
+		max := MinInt
+		for _,i := range n.children{
+			x, y := i.getHighestTotal()
+			if y > max{
+				max = y
+				nodes = append(x,i)
+				total = total + i.value
+			}
+		}
+	}
+	return
+}
+
 func triToNodes(tri string) (nodes [][]node){
 	for rownum,rowslice :=  range strings.Split(tri,"\n"){
 		row := []node{}
@@ -52,35 +76,26 @@ func triToNodes(tri string) (nodes [][]node){
 				if columnnum-1<len(nodes[rownum-1]) && columnnum-1 >= 0{
 					parent1 = nodes[rownum-1][columnnum-1]
 				}
-				if columnnum<len(nodes[rownum-1]) && columnnum-1 >= 0{
+				if columnnum<len(nodes[rownum-1]) && columnnum >= 0{
 					parent2 = nodes[rownum-1][columnnum]
 				}
 			}
 			value,err := strconv.Atoi(value)
-			fmt.Println(value)
+			//fmt.Println(value)
 			if err != nil{
 				fmt.Println(err)
 			}
 			newnode := node{value,[]*node{&parent1,&parent2},[]*node{}}
 			row = append(row, newnode)
-			parent1.addChild([]*node{&newnode}) //is this wrong?  probably
-			parent2.addChild([]*node{&newnode})
+			fmt.Println(parent1.value, newnode)
+			fmt.Println("before addChild: ", parent1.children)
+			//parent1.addChild([]*node{&newnode}) //is this wrong?  probably
+			parent1.children = append(parent1.children, []*node{&newnode}...)
+			fmt.Println("parent1's children: ", parent1.children)
+			//parent2.addChild([]*node{&newnode})
+			parent2.children = append(parent2.children, []*node{&newnode}...)
 		}
 		nodes = append(nodes,row)
-	}
-	return
-}
-
-func getHighestTotal(topnode node) (nodes []*node){
-	if len(node.children) == 0{
-		return
-	} else {
-		max := MinInt
-		for _,i := node.children{
-			if getHighestTotal(i) > max{
-				append(nodes,i)
-			}
-		}
 	}
 	return
 }
