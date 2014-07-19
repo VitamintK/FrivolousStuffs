@@ -95,7 +95,12 @@ func triToNodes(tri string) (nodes [][]node){
 			//parent2.addChild([]*node{&newnode})
 			parent2.children = append(parent2.children, []*node{&newnode}...)
 		}
+		fmt.Println(row) //all in row have empty children at this point wait of course its the current row so it has no children yet
 		nodes = append(nodes,row)
+		if rownum>0{
+		fmt.Println("1,1", nodes[rownum-1][0].children)
+		}
 	}
+	fmt.Println(nodes[1][1].children)
 	return
 }
