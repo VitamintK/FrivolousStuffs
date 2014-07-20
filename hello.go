@@ -45,3 +45,7 @@ func learnTypes(){
 	var a4 [4]int
 	a3 := [...]int{3, 1, 5}
 }
+
+func arraytest(input int)(ends []int){
+
+}
