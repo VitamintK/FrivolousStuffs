@@ -46,6 +46,10 @@ func learnTypes(){
 	a3 := [...]int{3, 1, 5}
 }
 
-func arraytest(input int)(ends []int){
-
+func arraytest(inputs []int)(ends []int){
+	ends = input
+	for x,y := range ends{
+		ends[x] = y+1
+	}
+	return
 }
