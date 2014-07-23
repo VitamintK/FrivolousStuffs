@@ -20,7 +20,7 @@ func practice(){
 	sum, prod := addAndMult(x,y)
 	fmt.Println("sum:", sum, "prod:", prod)
 	learnTypes()
-	arraytestres := arraytest([]int{3,4})
+	arraytestres := arraytest([][]int{[]int{1,2},[]int{3,4}})
 	fmt.Println(arraytestres)
 }
 
@@ -49,10 +49,11 @@ func learnTypes(){
 	fmt.Println(asdf)
 }
 
-func arraytest(inputs []int)(ends []int){
+func arraytest(inputs [][]int)(ends [][]int){
 	ends = inputs
-	for x,y := range ends{
-		ends[x] = y+1
+	for _,y := range ends{
+		y = append(y,3)
+		fmt.Println(y)
 	}
 	return
 }
