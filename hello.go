@@ -51,9 +51,10 @@ func learnTypes(){
 
 func arraytest(inputs [][]int)(ends [][]int){
 	ends = inputs
-	for _,y := range ends{
-		y = append(y,3)
+	for x,y := range ends{
+		ends[x] = append(y,3)
 		fmt.Println(y)
 	}
+	fmt.Println(ends)
 	return
 }
