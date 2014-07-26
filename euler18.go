@@ -90,10 +90,10 @@ func triToNodes(tri string) (nodes [][]node){
 			fmt.Println(parent1.value, newnode)
 			fmt.Println("before addChild: ", parent1.children)
 			//parent1.addChild([]*node{&newnode}) //is this wrong?  probably
-			parent1.children = append(parent1.children, []*node{&newnode}...)
+			parent1.children = append(parent1.children, []*node{&newnode}...) //nodes[rownum-1][columnnum-1]
 			fmt.Println("parent1's children: ", parent1.children)
 			//parent2.addChild([]*node{&newnode})
-			parent2.children = append(parent2.children, []*node{&newnode}...)
+			parent2.children = append(parent2.children, []*node{&newnode}...) //nodes[rownum-1][columnnum]
 		}
 		fmt.Println(row) //all in row have empty children at this point wait of course its the current row so it has no children yet
 		nodes = append(nodes,row)
