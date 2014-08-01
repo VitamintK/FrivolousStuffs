@@ -213,3 +213,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.json
+/gmail/Gmail - Fwd  Notification of Donation Received_files
+gmail/Gmail - Fwd  Notification of Donation Received.htm
