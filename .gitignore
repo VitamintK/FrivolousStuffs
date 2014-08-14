@@ -216,3 +216,4 @@ pip-log.txt
 *.json
 /gmail/Gmail - Fwd  Notification of Donation Received_files
 gmail/Gmail - Fwd  Notification of Donation Received.htm
+gmail/clientsecretlocation.py
