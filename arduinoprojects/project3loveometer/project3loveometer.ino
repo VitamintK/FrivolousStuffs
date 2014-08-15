@@ -1,5 +1,5 @@
 const int sensorPin = A0;
-const float baselineTemp = 24;
+float baselineTemp = 24.0;
 
 void setup(){
   Serial.begin(9600);
@@ -7,6 +7,7 @@ void setup(){
     pinMode(pinNumber, OUTPUT);
     digitalWrite(pinNumber, LOW);
   }
+  calibrate();
 }
 
 void loop(){
@@ -41,4 +42,25 @@ void loop(){
     digitalWrite(4, HIGH);
   }
   delay(1);
+}
+
+float sensorToTemp(float sensorVal){
+  float voltage = (sensorVal/1024.0) * 5.0;
+  Serial.print(", Volts: ");
+  Serial.print(voltage);
+  Serial.print(", degrees C: ");
+  float temperature = (voltage - .5) * 100;
+  return temperature;
+}
+
+void calibrate(){
+  digitalWrite(2, HIGH);
+  baselineTemp = sensorToTemp(analogRead(sensorPin));
+  while(millis() < 5000){
+    if (millis()%1000 == 0){
+      float sensorValue = analogRead(sensorPin);
+      float temp = sensorToTemp(sensorValue);
+      baselineTemp = (temp+baselineTemp)/2;
+    }
+  }
 }
