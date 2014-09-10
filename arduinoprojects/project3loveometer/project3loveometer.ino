@@ -1,3 +1,4 @@
+//TODO: add a push button, which, when pressed, intiates a calibration session.
 const int sensorPin = A0;
 float baselineTemp = 24.0;
 

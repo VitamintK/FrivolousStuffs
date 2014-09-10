@@ -223,7 +223,7 @@ def binaryListToInt(lst):
     return result
 
 def dub(i):
-    return i if i>9 else " "+str(i)
+    return str(i) if i>9 else " "+str(i)
 
 def strify(lst):
     return ''.join([str(i) for i in lst])
