@@ -1,7 +1,7 @@
 const int switchPin = 2;
 const int motorPin = 9;
 int switchState = 0;
-int lightState = 0;
+int motorOn = 0;
 
 void setup(){
   pinMode(motorPin, OUTPUT);
@@ -15,7 +15,7 @@ void loop(){
   
   switchState = digitalRead(2);
   switchState = digitalRead(switchPin);
-  if(lightState == HIGH){
+  if(motorOn == HIGH){
     digitalWrite(motorPin, HIGH);
     delay(50);
   }
