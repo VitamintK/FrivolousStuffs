@@ -17,12 +17,45 @@ def allPlayers():
     for player in playertext:
         player = player.strip()
         playerspl = player.split(',')
-        if len(player) > 1:
-            try:
-                firstnames[playerspl[1].split()[0]].add(playerspl[0].split()[-1])
-            except:
-                print(player)
+        if len(playerspl) > 1:
+            firstnames[playerspl[1].split()[0]].add(playerspl[0].split()[-1])
     return firstnames
         
 firstnames = allPlayers()
-print(firstnames['Michael'])
+cache = dict()
+
+def getnext(prevlastname, namessofar):
+    namessofar = namessofar[:]
+    if prevlastname in cache:
+        return cache[prevlastname]
+    
+    if prevlastname in firstnames:
+        lastnamecandidates = []
+        for lastname in firstnames[prevlastname]:
+            if (prevlastname, lastname) not in namessofar:
+                if lastname in cache:
+                    lastnamecandidates.append([(prevlastname, lastname)] + cache[lastname])
+                else:
+                    lastnamecandidates.append(
+                        getnext(lastname, namessofar[:] + [(prevlastname, lastname)]))
+        greatestcand = max(lastnamecandidates, key = lambda x: len(x))
+        cache[prevlastname] = greatestcand
+        return greatestcand
+            
+
+    else:
+        return namessofar
+
+starters = []
+for firstname, lastnames in firstnames.items():
+#[('Paul', {'George'})]:#firstnames.items():
+    for lastname in lastnames:
+        #print(getnext(lastname, [(firstname, lastname)]))
+        name = getnext(lastname, [(firstname, lastname)])
+        if len(name) > 1:
+            print(' '.join([n[0] for n in name] + [name[-1][1]]))
+        starters.append(name)
+        
+print(max(starters, key = lambda x: len(x)))
+
+
