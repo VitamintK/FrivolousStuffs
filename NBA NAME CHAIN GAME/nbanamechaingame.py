@@ -39,12 +39,15 @@ def getnext(prevlastname, namessofar):
                     lastnamecandidates.append(
                         getnext(lastname, namessofar[:] + [(prevlastname, lastname)]))
         greatestcand = max(lastnamecandidates, key = lambda x: len(x))
-        cache[prevlastname] = greatestcand
+        #cache[prevlastname] = greatestcand
         return greatestcand
             
 
     else:
         return namessofar
+
+def formatName(name):
+    return ' '.join([n[0] for n in name] + [name[-1][1]])
 
 starters = []
 for firstname, lastnames in firstnames.items():
@@ -53,9 +56,10 @@ for firstname, lastnames in firstnames.items():
         #print(getnext(lastname, [(firstname, lastname)]))
         name = getnext(lastname, [(firstname, lastname)])
         if len(name) > 1:
-            print(' '.join([n[0] for n in name] + [name[-1][1]]))
+            print(formatName(name))
         starters.append(name)
         
 print(max(starters, key = lambda x: len(x)))
-
+print(formatName(max(starters, key = lambda x: len(x))))
+print(cache)
 
