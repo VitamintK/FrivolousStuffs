@@ -61,5 +61,5 @@ for firstname, lastnames in firstnames.items():
         
 print(max(starters, key = lambda x: len(x)))
 print(formatName(max(starters, key = lambda x: len(x))))
-print(cache)
+print(sorted(cache.items(), key = lambda x: len(x[1])))
 
