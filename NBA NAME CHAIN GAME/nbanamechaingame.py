@@ -37,9 +37,9 @@ def getnext(prevlastname, namessofar):
                     lastnamecandidates.append([(prevlastname, lastname)] + cache[lastname])
                 else:
                     lastnamecandidates.append(
-                        getnext(lastname, namessofar[:] + [(prevlastname, lastname)]))
+                        getnext(lastname, [(prevlastname, lastname)] + namessofar))
         greatestcand = max(lastnamecandidates, key = lambda x: len(x))
-        #cache[prevlastname] = greatestcand
+        cache[prevlastname] = greatestcand
         return greatestcand
             
 
