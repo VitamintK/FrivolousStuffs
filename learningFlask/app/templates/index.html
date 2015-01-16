@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>Quotes</title>
+  </head>
+  <body>
+    <h1>Some Quotes</h1>
+    {% for quote in quotes %}
+      <p>"{{ quote.quote }}"<br>
+      -{{ quote.author }}</p>
+    {% endfor %}
+  </body>
+</html>
