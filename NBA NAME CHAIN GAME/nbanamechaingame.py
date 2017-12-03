@@ -21,7 +21,7 @@ def allPlayers():
             firstnames[playerspl[1].split()[0]].add(playerspl[0].split()[-1])
     return firstnames
         
-firstnames = allPlayers()
+firstnames = currentPlayers()
 cache = dict()
 
 def getnext(prevlastname, namessofar):
@@ -37,9 +37,9 @@ def getnext(prevlastname, namessofar):
                     lastnamecandidates.append([(prevlastname, lastname)] + cache[lastname])
                 else:
                     lastnamecandidates.append(
-                        getnext(lastname, [(prevlastname, lastname)] + namessofar))
+                        getnext(lastname, namessofar + [(prevlastname, lastname)]))
         greatestcand = max(lastnamecandidates, key = lambda x: len(x))
-        cache[prevlastname] = greatestcand
+        #cache[prevlastname] = greatestcand
         return greatestcand
             
 
